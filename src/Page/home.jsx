@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 export default function Home() {
     const handleClick = () => {
         window.scrollTo({
-            top: 2193,
+            top: 1693,
             behavior: 'smooth'
         });
     }
@@ -26,8 +26,7 @@ export default function Home() {
     }
     useEffect(() => {
         const handelscroll = () => {
-            setopen(false)
-
+            setopen(false);
         }
 
         window.addEventListener('scroll', handelscroll);
@@ -92,7 +91,7 @@ export default function Home() {
                             <h5>{ele.title}</h5>
                             <img src={ele.src} alt="7df" />
                             <p className='fw-bold'>{ele.Paragraph}</p>
-                            <button onClick={opencard} className="btn-shop"> View details</button>
+                            <a className="btn-shop px-5" href="./detaillCoffe" style={{ textDecoration: 'none' }} > Details</a>
                         </div>
                     </>
                 })}
@@ -182,7 +181,7 @@ export default function Home() {
                                 <h5>{ele.title}</h5>
                                 <img src={ele.src} alt="7df" />
                                 <p className='fw-bold'>{ele.Paragraph}</p>
-                                <a className="btn-shop" href="./shop" style={{ textDecoration: 'none' }} > Shop coffe</a>
+                                <a className="btn-shop px-5" href="./shop" style={{ textDecoration: 'none' }} > Shop coffe</a>
                             </div>
                         </>
                     })}

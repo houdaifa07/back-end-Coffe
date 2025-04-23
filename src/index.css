@@ -92,10 +92,11 @@ li:hover a {
 
 .sectionL {
   padding: auto;
-  width: 100%;
+  width: 100vw;
   background-image: url('./Images/Home\ 01\ -\ Hero\ Banner.png');
   background-repeat: no-repeat;
-  height: 80vh;
+  height: 65vh;
+  background-size: cover;
 }
 
 .sectionL .info {
@@ -139,8 +140,14 @@ li:hover a {
 .allbox1 .box {
   padding: 30px 15px;
   margin: 15px;
-  box-shadow: 0px 4px 1px #4f3b2e, 0px -3px 0px #4f3b2e;
+  /* box-shadow: 0px 4px 1px #ffffff, 0px -3px 0px #ffffff; */
   border-radius: 10px;
+  transition: 0.2s;
+}
+
+.allbox1 .box:hover {
+  box-shadow: 0px 4px 1px #7262574f, 0px -3px 0px #7262574f;
+  transform: translate(4px, 3px);
 }
 
 .allbox1 .btn-shop {
@@ -173,7 +180,8 @@ li:hover a {
   width: 20%;
   right: 10%;
   padding: 6px;
-  top: 45%;
+  margin-top: 12%;
+
 }
 
 .allreview .review {
@@ -218,53 +226,15 @@ li:hover a {
   height: 100px;
 }
 
-.contacte {
-  position: relative;
-  background-image: url('./Images/Dz8gTbMVYAIM5uT.jpg');
-  padding-top: 5px;
-  padding: auto;
-  width: 100vw;
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 65vh;
-
-
-}
-
-
-.contacte h4 {
-  font-style: italic;
-  color: white;
-  text-shadow: 6px 6px 4px black;
-}
-
 .contacte .infocontacte {
-  backdrop-filter: blur(10px);
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 15px;
-  height: 67vh;
-  top: -5px;
-  position: relative;
+  border: 1px solid black;
+  border-radius: 20px;
+  overflow: hidden;
 }
 
-.contacte h2 {
-  color: var(--primary-color);
-  text-shadow: 6px 6px 4px black;
-  font-style: italic;
 
-}
 
-.contacte .btn-shop {
-  width: 300px;
-}
 
-.contacte input {
-  min-width: 350px;
-}
-
-.contacte textarea {
-  min-width: 330px;
-}
 
 .cardshop {
   z-index: 1000;
