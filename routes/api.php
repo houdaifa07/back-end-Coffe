@@ -13,6 +13,5 @@ Route::put('/update_product/{id}', [product_sold::class, 'update']);
 
 
 Route::get('/test', function () {
-
     return response()->json(['message' => 'API is working!']);
 });
