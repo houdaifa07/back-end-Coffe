@@ -139,5 +139,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 =======
 # coffee-shop-react
->>>>>>> efba9d7c2e2b6cee0da05057571653e75b44f42e
+>>>>>>> efba9d7c2e2b6cee0da05057571653e75b44f42e   
 >>>>>>> 1b7b4da74c1ba735c430436480b99c367e647382
