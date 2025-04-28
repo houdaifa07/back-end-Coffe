@@ -8,6 +8,7 @@ Route::post('/AddProduct', [product_sold::class, 'create_product']);
 Route::delete('/delete_product/{title}', [product_sold::class, 'destroy']);
 Route::post('/addReview', [product_sold::class, 'cliendReview']);
 Route::put('/update_product/{id}', [product_sold::class, 'update']);
+Route::post('/update_stock', [product_sold::class, 'updateStockAfterSale']);
 
 
 

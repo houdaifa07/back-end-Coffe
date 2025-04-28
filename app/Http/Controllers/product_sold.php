@@ -132,4 +132,41 @@ class product_sold extends Controller
         return response()->json(['message' => 'Product updated successfully']);
     }
 
+
+
+
+
+
+    public function updateStockAfterSale(Request $request){
+
+    $validated = $request->validate([
+        'items.*.id' => 'required|exists:stocks,id', 
+        'items.*.quantity_sold' => 'required|integer|min:1',
+    ]);
+
+    $updatedProducts = [];
+
+    foreach ($validated['items'] as $item) {
+        $product = Stocks::find($item['id']);
+        
+        if ($product) {
+            if ($product->quantity >= $item['quantity_sold']) {
+                $product->quantity -= $item['quantity_sold'];
+                $product->save();
+
+                $updatedProducts[] = $product;
+            } else {
+                return response()->json([
+                    'message' => 'Not enough stock for product: ' . $product->title,
+                ], 400);
+            }
+        }
+    }
+
+    return response()->json([
+        'message' => 'Stock updated successfully',
+        'products' => $updatedProducts,
+    ]);
+}
+
 }
