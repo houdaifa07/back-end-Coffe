@@ -23,11 +23,11 @@ class product_sold extends Controller
         'items.*.price' => 'required|numeric|min:0',
         'items.*.quantity' => 'required|integer|min:1',
         'items.*.total' => 'required|numeric|min:0',
-        'items.*.Name' => 'required',
-        'items.*.CardNumber' => 'required',
-        'items.*.ExpiryDate' => 'required',
-        'items.*.IssuingCountOryregion' => 'required',
-        'items.*.CID' => 'required',
+        'items.*.Name' => 'required|string',
+        'items.*.CardNumber' => 'required|numeric',
+        'items.*.ExpiryDate' => 'required|numeric',
+        'items.*.IssuingCountOryregion' => 'required|string',
+        'items.*.CID' => 'required|numeric',
         ]);
 
 
@@ -46,7 +46,6 @@ class product_sold extends Controller
                 'ExpiryDate' => $item['ExpiryDate'],
                 'IssuingCountOryregion' => $item['IssuingCountOryregion'],
                 'CID' => $item['CID']
-
             ]);
             $savedProducts[] = $product;
 }
@@ -60,8 +59,8 @@ class product_sold extends Controller
     $validated = $request->validate([
         'items.*.image_src' => 'string',
         'items.*.title' => 'required|string|max:255',
-        'items.*.price' => 'required|numeric|min:0',
-        'items.*.quantity' => 'required|integer|min:1',
+        'items.*.price' => 'required|numeric|min:1',
+        'items.*.quantity' => 'required|numeric|min:1',
     ]);
 
     $savedProducts = [];
@@ -91,9 +90,9 @@ class product_sold extends Controller
 
     public function cliendReview(Request $request){
         $validated = $request->validate([
-            'reviews.*.name' => 'required',
-            'reviews.*.email' => 'required',
-            'reviews.*.message' => 'required'
+            'reviews.*.name' => 'required|string|max:255',
+            'reviews.*.email' => 'required|email',
+            'reviews.*.message' => 'required|string'
         ]);
 
         $savedProducts = [];
@@ -117,8 +116,8 @@ class product_sold extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'price' => 'required|numeric|min:0',
-            'quantity' => 'required|integer|min:1',
+            'price' => 'required|numeric|min:1',
+            'quantity' => 'required|numeric|min:1',
         ]);
     
         $product = Stocks::find($id);
@@ -136,37 +135,23 @@ class product_sold extends Controller
 
 
 
-
-    public function updateStockAfterSale(Request $request){
-
-    $validated = $request->validate([
-        'items.*.id' => 'required|exists:stocks,id', 
-        'items.*.quantity_sold' => 'required|integer|min:1',
-    ]);
-
-    $updatedProducts = [];
-
-    foreach ($validated['items'] as $item) {
-        $product = Stocks::find($item['id']);
-        
-        if ($product) {
-            if ($product->quantity >= $item['quantity_sold']) {
-                $product->quantity -= $item['quantity_sold'];
+    
+    public function updateStockAfterSale(Request $request)
+    {
+        $request->validate([
+            'items' => 'required|array',
+            'items.*.id' => 'required|integer',
+            'items.*.quantity' => 'required|integer',
+        ]);
+    
+        foreach ($request->items as $item) {
+            $product = Product::find($item['id']);
+            if ($product) {
+                $product->stock -= $item['quantity'];
                 $product->save();
-
-                $updatedProducts[] = $product;
-            } else {
-                return response()->json([
-                    'message' => 'Not enough stock for product: ' . $product->title,
-                ], 400);
             }
         }
+    
+        return response()->json(['message' => 'Stock updated successfully']);
     }
-
-    return response()->json([
-        'message' => 'Stock updated successfully',
-        'products' => $updatedProducts,
-    ]);
-}
-
 }
